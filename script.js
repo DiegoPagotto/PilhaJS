@@ -3,8 +3,9 @@
 
 var stack = {
     values: [],
+    values_sorted: [],
     lowerValue: function () {
-        return Math.min.apply(null, this.values);
+        return this.values_sorted[0];
     }
 };
 
@@ -29,6 +30,8 @@ document.getElementById("btnAddToStack").onclick = function () {
 
 function addToStack(value) {
     stack.values.push(value);
+    stack.values_sorted.push(value);
+    stack.values_sorted.sort();
 }
 
 // Evento de clique para o botão "Remover da Pilha"
@@ -45,6 +48,7 @@ document.getElementById("removeFromStack").onclick = function () {
 
 function removeFromStack() {
     stack.values.pop();
+    stack.values_sorted = stack.values.sort();
 }
 
 
@@ -54,21 +58,8 @@ function removeFromStack() {
 
 document.getElementById("returnLower").onclick = function () {
     if (stack.values.length > 0) {
-        //alert("O menor valor dentro da pilha é "+ stack.lowerValue());
-        var antes = Date.now();
-        stack.lowerValue()
-        var duracao = Date.now() - antes;
-        console.log("levou " + duracao + "ms")
+        alert("O menor valor dentro da pilha é "+ stack.lowerValue());
     } else {
         alert("A pilha está vazia.");
     }
-}
-
-// Função que verifica quanto tempo levou a execução da função lowerValue()
-
-function executionLatency(){
-    var start = Date.now();
-    stack.lowerValue()
-    var duration = Date.now() - start;
-    console.log("lowerValue() function was executed in "+ duration+"ms.")
 }
